@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="java,matlab," />
 
 
 
@@ -84,15 +84,19 @@
 
 
 
-<meta name="description" content="我挥舞着键盘和本子，发誓要把这个世界写的明明白白。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sycamore's Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="读取CSV文件java读取csv文件的内容(csv文件有多列数据)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一些试验中琐碎的东西">
+<meta property="og:url" content="http://yoursite.com/2016/05/23/2016-5-23/index.html">
 <meta property="og:site_name" content="Sycamore's Blog">
-<meta property="og:description" content="我挥舞着键盘和本子，发誓要把这个世界写的明明白白。">
+<meta property="og:description" content="读取CSV文件java读取csv文件的内容(csv文件有多列数据)">
+<meta property="og:image" content="http://www.kyctj.com/doit/wp-content/uploads/2016/05/1-199x300.jpg">
+<meta property="og:image" content="http://www.kyctj.com/doit/wp-content/uploads/2016/05/2-81x300.jpg">
+<meta property="og:updated_time" content="2016-05-23T09:34:05.217Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sycamore's Blog">
-<meta name="twitter:description" content="我挥舞着键盘和本子，发誓要把这个世界写的明明白白。">
+<meta name="twitter:title" content="一些试验中琐碎的东西">
+<meta name="twitter:description" content="读取CSV文件java读取csv文件的内容(csv文件有多列数据)">
+<meta name="twitter:image" content="http://www.kyctj.com/doit/wp-content/uploads/2016/05/1-199x300.jpg">
 
 
 
@@ -110,7 +114,7 @@
   };
 </script>
 
-  <title> Sycamore's Blog </title>
+  <title> 一些试验中琐碎的东西 | Sycamore's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -131,9 +135,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -210,9 +212,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -232,10 +234,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/05/23/2016-5-23/" itemprop="url">
-                  一些试验中琐碎的东西
-                </a>
+                一些试验中琐碎的东西
               
             
           </h1>
@@ -291,272 +290,68 @@
       
 
       
-        
-          <h1 id="读取CSV文件"><a href="#读取CSV文件" class="headerlink" title="读取CSV文件"></a>读取CSV文件</h1><p>java读取csv文件的内容(csv文件有多列数据)<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/05/23/2016-5-23/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+        <h1 id="读取CSV文件"><a href="#读取CSV文件" class="headerlink" title="读取CSV文件"></a>读取CSV文件</h1><p>java读取csv文件的内容(csv文件有多列数据)<br><a id="more"></a><br>csv文件的内容如下：<br><img src="http://www.kyctj.com/doit/wp-content/uploads/2016/05/1-199x300.jpg" alt="matlab源数据示意"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            BufferedReader input = new BufferedReader(new FileReader(&quot;my1.CSV&quot;));</span><br><span class="line">            FileWriter outWriter = new FileWriter(new File(&quot;outFile.txt&quot;));</span><br><span class="line">            String line;</span><br><span class="line">            String lineDataString;</span><br><span class="line">            while((line = input.readLine()) != null)</span><br><span class="line">            &#123;</span><br><span class="line">                lineDataString = new BigDecimal(line.split(&quot;,&quot;)[2] ).toPlainString();</span><br><span class="line">                System.out.println(lineDataString);</span><br><span class="line">                outWriter.write(lineDataString);</span><br><span class="line">                outWriter.write(&quot;\n&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            input.close();</span><br><span class="line">            outWriter.close();</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            // TODO Auto-generated catch block</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>取出如上第三列数据：<br><img src="http://www.kyctj.com/doit/wp-content/uploads/2016/05/2-81x300.jpg" alt="读取出来的数据"></p>
+<p>后续就可以对这个数据文件进行处理。</p>
+<p>需要注意的是我在读取CSV文件的时候会发现有java.lang.ArrayIndexOutOfBoundsException的错误，经过试验发现是因为数据的内容过少—-》把CSV文件用excel打开会发现一个工作表有1900多个条目，但是我的数据只有几百行。当然我在数据开始添加了很多空行并没有错误，因此<code>csv文件的数据一定要保证填满整个工作表</code>。</p>
+<h1 id="matlab调取数据文件画图"><a href="#matlab调取数据文件画图" class="headerlink" title="matlab调取数据文件画图"></a>matlab调取数据文件画图</h1><p>如上，当我们得到了上述文件后可以用matlab画图对数据进行进一步的分析,想要将数据画图显示出来只需要简单的命令：</p>
+<h2 id="多幅图像多个窗口"><a href="#多幅图像多个窗口" class="headerlink" title="多幅图像多个窗口"></a>多幅图像多个窗口</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">figure</span><br><span class="line">y=load(&apos;detail_0.txt&apos;);//加载你的数据文件</span><br><span class="line">plot(y);</span><br><span class="line">figure</span><br><span class="line">y=load(&apos;detail_1.txt&apos;);//加载你的数据文件</span><br><span class="line">plot(y);</span><br></pre></td></tr></table></figure>
+<h2 id="多幅图像不同颜色在一个坐标轴下"><a href="#多幅图像不同颜色在一个坐标轴下" class="headerlink" title="多幅图像不同颜色在一个坐标轴下"></a>多幅图像不同颜色在一个坐标轴下</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">figure</span><br><span class="line">y=load(&apos;detail_0.txt&apos;);</span><br><span class="line">plot(y,&apos;-b&apos;);//蓝色实线</span><br><span class="line">hold on</span><br><span class="line">y1=load(&apos;detail_1.txt&apos;);</span><br><span class="line">plot(y1,&apos;-r&apos;);//红色实线</span><br></pre></td></tr></table></figure>
+<p>本文使用 <strong>{小书匠}编辑器</strong>发布。</p>
+
+      
+    </div>
+
+    <div>
+      
         
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/23/new/" itemprop="url">
-                  安卓BroadcastReceiver组件-监听系统广播
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-23T15:02:12+08:00" content="2016-05-23">
-              2016-05-23
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/23/new/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/23/new/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/05/23/new/" class="leancloud_visitors" data-flag-title="安卓BroadcastReceiver组件-监听系统广播">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
+            <a href="/tags/java-matlab/" rel="tag">#java,matlab</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>安卓系统在运行过程中，会不断的发送一些广播信息，比如电量不足，时区改变，有来电或者短信等。应用程序通过监听这些广播信息就能够得到系统的一些状态。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/05/23/new/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/23/new/" rel="next" title="安卓BroadcastReceiver组件-监听系统广播">
+                <i class="fa fa-chevron-left"></i> 安卓BroadcastReceiver组件-监听系统广播
+              </a>
+            
           </div>
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+          <div class="post-nav-prev post-nav-item">
             
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/23/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-23T12:23:27+08:00" content="2016-05-23">
-              2016-05-23
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/23/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/23/hello-world/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/05/23/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -564,6 +359,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/05/23/2016-5-23/"
+           data-title="一些试验中琐碎的东西" data-url="http://yoursite.com/2016/05/23/2016-5-23/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -583,8 +386,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -627,6 +439,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#读取CSV文件"><span class="nav-number">1.</span> <span class="nav-text">读取CSV文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#matlab调取数据文件画图"><span class="nav-number">2.</span> <span class="nav-text">matlab调取数据文件画图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多幅图像多个窗口"><span class="nav-number">2.1.</span> <span class="nav-text">多幅图像多个窗口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多幅图像不同颜色在一个坐标轴下"><span class="nav-number">2.2.</span> <span class="nav-text">多幅图像不同颜色在一个坐标轴下</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -723,6 +546,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
