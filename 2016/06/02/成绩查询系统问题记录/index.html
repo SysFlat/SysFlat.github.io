@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="java,matlab," />
+  <meta name="keywords" content="JAVA,学习," />
 
 
 
@@ -84,19 +84,25 @@
 
 
 
-<meta name="description" content="读取CSV文件java读取csv文件的内容(csv文件有多列数据)">
+<meta name="description" content="小数保留指定位数通过格式化字符串进行处理，比如保留2位小数12String str = String.format(&amp;quot;%.2f&amp;quot;,floatValue);Float.parseFloat(str);//获取小数
+StringBuffer使用以及清空
+第一种
+123append--添加相应的内容toString()---转化成字符串setLength(0);---将长度设为0">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一些试验中琐碎的东西">
-<meta property="og:url" content="http://yoursite.com/2016/05/23/2016-5-23/index.html">
+<meta property="og:title" content="成绩查询系统问题记录">
+<meta property="og:url" content="http://yoursite.com/2016/06/02/成绩查询系统问题记录/index.html">
 <meta property="og:site_name" content="Sycamore's Blog">
-<meta property="og:description" content="读取CSV文件java读取csv文件的内容(csv文件有多列数据)">
-<meta property="og:image" content="http://www.kyctj.com/doit/wp-content/uploads/2016/05/1-199x300.jpg">
-<meta property="og:image" content="http://www.kyctj.com/doit/wp-content/uploads/2016/05/2-81x300.jpg">
-<meta property="og:updated_time" content="2016-05-23T09:34:05.217Z">
+<meta property="og:description" content="小数保留指定位数通过格式化字符串进行处理，比如保留2位小数12String str = String.format(&amp;quot;%.2f&amp;quot;,floatValue);Float.parseFloat(str);//获取小数
+StringBuffer使用以及清空
+第一种
+123append--添加相应的内容toString()---转化成字符串setLength(0);---将长度设为0">
+<meta property="og:updated_time" content="2016-06-01T13:08:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一些试验中琐碎的东西">
-<meta name="twitter:description" content="读取CSV文件java读取csv文件的内容(csv文件有多列数据)">
-<meta name="twitter:image" content="http://www.kyctj.com/doit/wp-content/uploads/2016/05/1-199x300.jpg">
+<meta name="twitter:title" content="成绩查询系统问题记录">
+<meta name="twitter:description" content="小数保留指定位数通过格式化字符串进行处理，比如保留2位小数12String str = String.format(&amp;quot;%.2f&amp;quot;,floatValue);Float.parseFloat(str);//获取小数
+StringBuffer使用以及清空
+第一种
+123append--添加相应的内容toString()---转化成字符串setLength(0);---将长度设为0">
 
 
 
@@ -114,7 +120,7 @@
   };
 </script>
 
-  <title> 一些试验中琐碎的东西 | Sycamore's Blog </title>
+  <title> 成绩查询系统问题记录 | Sycamore's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -234,7 +240,7 @@
             
             
               
-                一些试验中琐碎的东西
+                成绩查询系统问题记录
               
             
           </h1>
@@ -246,8 +252,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-23T17:09:12+08:00" content="2016-05-23">
-              2016-05-23
+            <time itemprop="dateCreated" datetime="2016-06-02T09:10:44+08:00" content="2016-06-02">
+              2016-06-02
             </time>
           </span>
 
@@ -257,8 +263,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/23/2016-5-23/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/23/2016-5-23/" itemprop="commentsCount"></span>
+                <a href="/2016/06/02/成绩查询系统问题记录/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/02/成绩查询系统问题记录/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -268,7 +274,7 @@
 
           
           
-             <span id="/2016/05/23/2016-5-23/" class="leancloud_visitors" data-flag-title="一些试验中琐碎的东西">
+             <span id="/2016/06/02/成绩查询系统问题记录/" class="leancloud_visitors" data-flag-title="成绩查询系统问题记录">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -290,15 +296,35 @@
       
 
       
-        <h1 id="读取CSV文件"><a href="#读取CSV文件" class="headerlink" title="读取CSV文件"></a>读取CSV文件</h1><p>java读取csv文件的内容(csv文件有多列数据)<br><a id="more"></a><br>csv文件的内容如下：<br><img src="http://www.kyctj.com/doit/wp-content/uploads/2016/05/1-199x300.jpg" alt="matlab源数据示意"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            BufferedReader input = new BufferedReader(new FileReader(&quot;my1.CSV&quot;));</span><br><span class="line">            FileWriter outWriter = new FileWriter(new File(&quot;outFile.txt&quot;));</span><br><span class="line">            String line;</span><br><span class="line">            String lineDataString;</span><br><span class="line">            while((line = input.readLine()) != null)</span><br><span class="line">            &#123;</span><br><span class="line">                lineDataString = new BigDecimal(line.split(&quot;,&quot;)[2] ).toPlainString();</span><br><span class="line">                System.out.println(lineDataString);</span><br><span class="line">                outWriter.write(lineDataString);</span><br><span class="line">                outWriter.write(&quot;\n&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            input.close();</span><br><span class="line">            outWriter.close();</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            // TODO Auto-generated catch block</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>取出如上第三列数据：<br><img src="http://www.kyctj.com/doit/wp-content/uploads/2016/05/2-81x300.jpg" alt="读取出来的数据"></p>
-<p>后续就可以对这个数据文件进行处理。</p>
-<p>需要注意的是我在读取CSV文件的时候会发现有java.lang.ArrayIndexOutOfBoundsException的错误，经过试验发现是因为数据的内容过少—-》把CSV文件用excel打开会发现一个工作表有1900多个条目，但是我的数据只有几百行。当然我在数据开始添加了很多空行并没有错误，因此<code>csv文件的数据一定要保证填满整个工作表</code>。</p>
-<h1 id="matlab调取数据文件画图"><a href="#matlab调取数据文件画图" class="headerlink" title="matlab调取数据文件画图"></a>matlab调取数据文件画图</h1><p>如上，当我们得到了上述文件后可以用matlab画图对数据进行进一步的分析,想要将数据画图显示出来只需要简单的命令：</p>
-<h2 id="多幅图像多个窗口"><a href="#多幅图像多个窗口" class="headerlink" title="多幅图像多个窗口"></a>多幅图像多个窗口</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">figure</span><br><span class="line">y=load(&apos;detail_0.txt&apos;);//加载你的数据文件</span><br><span class="line">plot(y);</span><br><span class="line">figure</span><br><span class="line">y=load(&apos;detail_1.txt&apos;);//加载你的数据文件</span><br><span class="line">plot(y);</span><br></pre></td></tr></table></figure>
-<h2 id="多幅图像不同颜色在一个坐标轴下"><a href="#多幅图像不同颜色在一个坐标轴下" class="headerlink" title="多幅图像不同颜色在一个坐标轴下"></a>多幅图像不同颜色在一个坐标轴下</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">figure</span><br><span class="line">y=load(&apos;detail_0.txt&apos;);</span><br><span class="line">plot(y,&apos;-b&apos;);//蓝色实线</span><br><span class="line">hold on</span><br><span class="line">y1=load(&apos;detail_1.txt&apos;);</span><br><span class="line">plot(y1,&apos;-r&apos;);//红色实线</span><br></pre></td></tr></table></figure>
-<p>本文使用 <strong>{小书匠}编辑器</strong>发布。</p>
+        <h2 id="小数保留指定位数"><a href="#小数保留指定位数" class="headerlink" title="小数保留指定位数"></a>小数保留指定位数</h2><p>通过格式化字符串进行处理，比如保留2位小数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String str = String.format(&quot;%.2f&quot;,floatValue);</span><br><span class="line">Float.parseFloat(str);//获取小数</span><br></pre></td></tr></table></figure></p>
+<h2 id="StringBuffer使用以及清空"><a href="#StringBuffer使用以及清空" class="headerlink" title="StringBuffer使用以及清空"></a>StringBuffer使用以及清空</h2><ul>
+<li><p>第一种</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">append--添加相应的内容</span><br><span class="line">toString()---转化成字符串</span><br><span class="line">setLength(0);---将长度设为0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第二种</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delete(int start,int end)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="随机数生成"><a href="#随机数生成" class="headerlink" title="随机数生成"></a>随机数生成</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Random random = new Random();</span><br><span class="line">int num = random.nextInt(num);</span><br></pre></td></tr></table></figure>
+<p>上面的语句会生成<code>0-num</code>之间的随机整数。</p>
+<h2 id="char-int-转换"><a href="#char-int-转换" class="headerlink" title="char + int 转换"></a>char + int 转换</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">char(&apos;a&apos; + 1)</span><br></pre></td></tr></table></figure>
+<p>需要进行强制类型转换，结果是<code>&#39;b&#39;</code>.</p>
+<h2 id="文件写入字符流"><a href="#文件写入字符流" class="headerlink" title="文件写入字符流"></a>文件写入字符流</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FileWriter output = new FileWriter(new File(&quot;data.txt&quot;));</span><br><span class="line">output.write(String);</span><br></pre></td></tr></table></figure>
+<h2 id="文件读取"><a href="#文件读取" class="headerlink" title="文件读取"></a>文件读取</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">BufferedReader reader = new BufferedReader(new FileReader(&quot;data.txt&quot;));</span><br><span class="line">String dataLine;</span><br><span class="line">String array[] = null;</span><br><span class="line">while((dataLine = reader.readLine()) != null)</span><br><span class="line">&#123;</span><br><span class="line">    array = dataLine.split(&quot;\\s+&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是读取是按照行来进行读取的，类似<code>1007    edipg    F    G        31.1    15.8    86.4</code>因此在取出之后需要对其按照空格进行划分，<br>上述处理结束就会得到<code>[1007,edipg,F,G,31.1,15.8,86.4]</code>这样的字符串数组，<br>后续可以选择相应数据对其进行处理。</p>
+<h2 id="arrayList使用"><a href="#arrayList使用" class="headerlink" title="arrayList使用"></a>arrayList使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;OBJ&gt; arrayList = new ArrayList&lt;OBJ&gt;();</span><br><span class="line">arrayList.add();//添加相应的对象</span><br><span class="line">arrayList.size();//获取arrayList中对象的数目</span><br><span class="line">arrayList.clear();//清空整个arrayList</span><br></pre></td></tr></table></figure>
+<h2 id="正则表达式使用"><a href="#正则表达式使用" class="headerlink" title="正则表达式使用"></a>正则表达式使用</h2><ul>
+<li>全部是数字 <code>&quot;[0-9]*&quot;</code></li>
+<li>全部是小写字母    <code>&quot;[a-z]&quot;*</code></li>
+<li>一个或者多个空格  <code>&quot;\\s+&quot;</code><br>一些常用的匹配：</li>
+<li><code>?</code>代表0或者1次</li>
+<li><code>*</code>代表0或者多次</li>
+<li><code>+</code>代表1次或者多次</li>
+<li><code>X{n}</code>X出现N次</li>
+<li><code>X{n,}</code>X至少出现N次</li>
+<li><code>X{n,m}</code>X出现n到m次</li>
+</ul>
+<p>本文使用 <strong>小书匠编辑器</strong>发布。</p>
 
       
     </div>
@@ -320,7 +346,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java-matlab/" rel="tag">#java,matlab</a>
+            <a href="/tags/JAVA-学习/" rel="tag">#JAVA,学习</a>
           
         </div>
       
@@ -329,17 +355,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/23/new/" rel="next" title="安卓BroadcastReceiver组件-监听系统广播">
-                <i class="fa fa-chevron-left"></i> 安卓BroadcastReceiver组件-监听系统广播
+              <a href="/2016/05/23/2016-5-23/" rel="next" title="一些试验中琐碎的东西">
+                <i class="fa fa-chevron-left"></i> 一些试验中琐碎的东西
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/02/成绩查询系统问题记录/" rel="prev" title="成绩查询系统问题记录">
-                成绩查询系统问题记录 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -365,8 +387,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/05/23/2016-5-23/"
-           data-title="一些试验中琐碎的东西" data-url="http://yoursite.com/2016/05/23/2016-5-23/">
+      <div class="ds-thread" data-thread-key="2016/06/02/成绩查询系统问题记录/"
+           data-title="成绩查询系统问题记录" data-url="http://yoursite.com/2016/06/02/成绩查询系统问题记录/">
       </div>
     
   </div>
@@ -450,7 +472,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#读取CSV文件"><span class="nav-number">1.</span> <span class="nav-text">读取CSV文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#matlab调取数据文件画图"><span class="nav-number">2.</span> <span class="nav-text">matlab调取数据文件画图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多幅图像多个窗口"><span class="nav-number">2.1.</span> <span class="nav-text">多幅图像多个窗口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多幅图像不同颜色在一个坐标轴下"><span class="nav-number">2.2.</span> <span class="nav-text">多幅图像不同颜色在一个坐标轴下</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#小数保留指定位数"><span class="nav-number">1.</span> <span class="nav-text">小数保留指定位数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StringBuffer使用以及清空"><span class="nav-number">2.</span> <span class="nav-text">StringBuffer使用以及清空</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机数生成"><span class="nav-number">3.</span> <span class="nav-text">随机数生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#char-int-转换"><span class="nav-number">4.</span> <span class="nav-text">char + int 转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件写入字符流"><span class="nav-number">5.</span> <span class="nav-text">文件写入字符流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件读取"><span class="nav-number">6.</span> <span class="nav-text">文件读取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#arrayList使用"><span class="nav-number">7.</span> <span class="nav-text">arrayList使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式使用"><span class="nav-number">8.</span> <span class="nav-text">正则表达式使用</span></a></li></ol></div>
             
           </div>
         </section>
