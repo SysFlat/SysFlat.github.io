@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JDBC,mysql," />
 
 
 
@@ -84,15 +84,22 @@
 
 
 
-<meta name="description" content="我挥舞着键盘和本子，发誓要把这个世界写的明明白白。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sycamore's Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="JDBC中可以执行基本的查询操作，有的时候我们会需要统计符合相关条件条目的数目，但是JDBC并没有提供相关的API来得到该信息。
+通过下面几种操作能够实现
+通过统计ResutSet中条目数目进行操作123456ResultSet set = stat.executeQuery(&amp;quot;select * from tableName&amp;quot;);int countNum = 0;while(s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JDBC统计查询条目数目">
+<meta property="og:url" content="http://yoursite.com/2016/06/15/JDBC统计查询条目数目/index.html">
 <meta property="og:site_name" content="Sycamore's Blog">
-<meta property="og:description" content="我挥舞着键盘和本子，发誓要把这个世界写的明明白白。">
+<meta property="og:description" content="JDBC中可以执行基本的查询操作，有的时候我们会需要统计符合相关条件条目的数目，但是JDBC并没有提供相关的API来得到该信息。
+通过下面几种操作能够实现
+通过统计ResutSet中条目数目进行操作123456ResultSet set = stat.executeQuery(&amp;quot;select * from tableName&amp;quot;);int countNum = 0;while(s">
+<meta property="og:updated_time" content="2016-06-15T13:51:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sycamore's Blog">
-<meta name="twitter:description" content="我挥舞着键盘和本子，发誓要把这个世界写的明明白白。">
+<meta name="twitter:title" content="JDBC统计查询条目数目">
+<meta name="twitter:description" content="JDBC中可以执行基本的查询操作，有的时候我们会需要统计符合相关条件条目的数目，但是JDBC并没有提供相关的API来得到该信息。
+通过下面几种操作能够实现
+通过统计ResutSet中条目数目进行操作123456ResultSet set = stat.executeQuery(&amp;quot;select * from tableName&amp;quot;);int countNum = 0;while(s">
 
 
 
@@ -110,7 +117,7 @@
   };
 </script>
 
-  <title> Sycamore's Blog </title>
+  <title> JDBC统计查询条目数目 | Sycamore's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -131,9 +138,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -210,9 +215,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -232,10 +237,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/06/15/JDBC统计查询条目数目/" itemprop="url">
-                  JDBC统计查询条目数目
-                </a>
+                JDBC统计查询条目数目
               
             
           </h1>
@@ -291,381 +293,65 @@
       
 
       
-        
-          
-            <p>JDBC中可以执行基本的查询操作，有的时候我们会需要统计符合相关条件条目的数目，但是<br>JDBC并没有提供相关的API来得到该信息。</p>
+        <p>JDBC中可以执行基本的查询操作，有的时候我们会需要统计符合相关条件条目的数目，但是<br>JDBC并没有提供相关的API来得到该信息。</p>
 <p>通过下面几种操作能够实现</p>
 <h1 id="通过统计ResutSet中条目数目进行操作"><a href="#通过统计ResutSet中条目数目进行操作" class="headerlink" title="通过统计ResutSet中条目数目进行操作"></a>通过统计ResutSet中条目数目进行操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ResultSet set = stat.executeQuery(&quot;select * from tableName&quot;);</span><br><span class="line">int countNum = 0;</span><br><span class="line">while(set.next())</span><br><span class="line">&#123;</span><br><span class="line">    countNum++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="通过JDBC中的getRow-来得到最后一行的行号进行"><a href="#通过JDBC中的getRow-来得到最后一行的行号进行" class="headerlink" title="通过JDBC中的getRow()来得到最后一行的行号进行"></a>通过JDBC中的getRow()来得到最后一行的行号进行</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ResultSet set = stat.executeQuery(&quot;select * from tableName&quot;);</span><br><span class="line">set.last(); //移动到最后一行</span><br><span class="line">int countNum = set.getRow();//得到最后一行的行号，也就是总的条目信息</span><br><span class="line">set.beforeFirst();//回到第零行，第一行是正式的数据（如果查询到的话）</span><br></pre></td></tr></table></figure>
 <h1 id="通过count语句进行实现"><a href="#通过count语句进行实现" class="headerlink" title="通过count语句进行实现"></a>通过count语句进行实现</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ResultSet set = stat.executeQuery(&quot;select count(*) from tableName&quot;);</span><br><span class="line">int countNum;</span><br><span class="line">if(set.next())</span><br><span class="line">&#123;</span><br><span class="line">    countNum = set.getInt(&quot;count(*)&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><a href="http://blog.csdn.net/chenzhanhai/article/details/6257066" target="_blank" rel="external">文章参考地址</a><br>本文使用 <strong>小书匠编辑器</strong>发布。</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/02/成绩查询系统问题记录/" itemprop="url">
-                  成绩查询系统问题记录
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-02T09:10:44+08:00" content="2016-06-02">
-              2016-06-02
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/02/成绩查询系统问题记录/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/02/成绩查询系统问题记录/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/06/02/成绩查询系统问题记录/" class="leancloud_visitors" data-flag-title="成绩查询系统问题记录">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
+            <a href="/tags/JDBC-mysql/" rel="tag">#JDBC,mysql</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h2 id="小数保留指定位数"><a href="#小数保留指定位数" class="headerlink" title="小数保留指定位数"></a>小数保留指定位数</h2><p>通过格式化字符串进行处理，比如保留2位小数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String str = String.format(&quot;%.2f&quot;,floatValue);</span><br><span class="line">Float.parseFloat(str);//获取小数</span><br></pre></td></tr></table></figure></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/02/成绩查询系统问题记录/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/02/成绩查询系统问题记录/" rel="next" title="成绩查询系统问题记录">
+                <i class="fa fa-chevron-left"></i> 成绩查询系统问题记录
+              </a>
+            
           </div>
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+          <div class="post-nav-prev post-nav-item">
             
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/23/2016-5-23/" itemprop="url">
-                  一些试验中琐碎的东西
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-23T17:09:12+08:00" content="2016-05-23">
-              2016-05-23
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/23/2016-5-23/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/23/2016-5-23/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/05/23/2016-5-23/" class="leancloud_visitors" data-flag-title="一些试验中琐碎的东西">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h1 id="读取CSV文件"><a href="#读取CSV文件" class="headerlink" title="读取CSV文件"></a>读取CSV文件</h1><p>java读取csv文件的内容(csv文件有多列数据)<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/05/23/2016-5-23/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/23/new/" itemprop="url">
-                  安卓BroadcastReceiver组件-监听系统广播
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-23T15:02:12+08:00" content="2016-05-23">
-              2016-05-23
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/23/new/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/23/new/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/05/23/new/" class="leancloud_visitors" data-flag-title="安卓BroadcastReceiver组件-监听系统广播">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>安卓系统在运行过程中，会不断的发送一些广播信息，比如电量不足，时区改变，有来电或者短信等。应用程序通过监听这些广播信息就能够得到系统的一些状态。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/05/23/new/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
@@ -673,6 +359,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/15/JDBC统计查询条目数目/"
+           data-title="JDBC统计查询条目数目" data-url="http://yoursite.com/2016/06/15/JDBC统计查询条目数目/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -692,8 +386,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -736,6 +439,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#通过统计ResutSet中条目数目进行操作"><span class="nav-number">1.</span> <span class="nav-text">通过统计ResutSet中条目数目进行操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通过JDBC中的getRow-来得到最后一行的行号进行"><span class="nav-number">2.</span> <span class="nav-text">通过JDBC中的getRow()来得到最后一行的行号进行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通过count语句进行实现"><span class="nav-number">3.</span> <span class="nav-text">通过count语句进行实现</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -832,6 +546,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
