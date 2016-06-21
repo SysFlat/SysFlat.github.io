@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="java,matlab," />
+  <meta name="keywords" content="安卓,BroadcastReceiver,系统广播," />
 
 
 
@@ -84,19 +84,16 @@
 
 
 
-<meta name="description" content="读取CSV文件java读取csv文件的内容(csv文件有多列数据)">
+<meta name="description" content="安卓系统在运行过程中，会不断的发送一些广播信息，比如电量不足，时区改变，有来电或者短信等。应用程序通过监听这些广播信息就能够得到系统的一些状态。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一些试验中琐碎的东西">
-<meta property="og:url" content="http://yoursite.com/2016/05/23/2016-5-23/index.html">
+<meta property="og:title" content="安卓BroadcastReceiver组件-监听系统广播">
+<meta property="og:url" content="http://yoursite.com/2016/05/23/安卓BroadcastReceiver组件-监听系统广播/index.html">
 <meta property="og:site_name" content="Sycamore's Blog">
-<meta property="og:description" content="读取CSV文件java读取csv文件的内容(csv文件有多列数据)">
-<meta property="og:image" content="http://www.kyctj.com/doit/wp-content/uploads/2016/05/1-199x300.jpg">
-<meta property="og:image" content="http://www.kyctj.com/doit/wp-content/uploads/2016/05/2-81x300.jpg">
-<meta property="og:updated_time" content="2016-05-23T09:34:05.217Z">
+<meta property="og:description" content="安卓系统在运行过程中，会不断的发送一些广播信息，比如电量不足，时区改变，有来电或者短信等。应用程序通过监听这些广播信息就能够得到系统的一些状态。">
+<meta property="og:updated_time" content="2016-05-23T07:56:56.164Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一些试验中琐碎的东西">
-<meta name="twitter:description" content="读取CSV文件java读取csv文件的内容(csv文件有多列数据)">
-<meta name="twitter:image" content="http://www.kyctj.com/doit/wp-content/uploads/2016/05/1-199x300.jpg">
+<meta name="twitter:title" content="安卓BroadcastReceiver组件-监听系统广播">
+<meta name="twitter:description" content="安卓系统在运行过程中，会不断的发送一些广播信息，比如电量不足，时区改变，有来电或者短信等。应用程序通过监听这些广播信息就能够得到系统的一些状态。">
 
 
 
@@ -114,7 +111,7 @@
   };
 </script>
 
-  <title> 一些试验中琐碎的东西 | Sycamore's Blog </title>
+  <title> 安卓BroadcastReceiver组件-监听系统广播 | Sycamore's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -234,7 +231,7 @@
             
             
               
-                一些试验中琐碎的东西
+                安卓BroadcastReceiver组件-监听系统广播
               
             
           </h1>
@@ -246,7 +243,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-23T17:09:12+08:00" content="2016-05-23">
+            <time itemprop="dateCreated" datetime="2016-05-23T15:02:12+08:00" content="2016-05-23">
               2016-05-23
             </time>
           </span>
@@ -257,8 +254,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/23/2016-5-23/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/23/2016-5-23/" itemprop="commentsCount"></span>
+                <a href="/2016/05/23/安卓BroadcastReceiver组件-监听系统广播/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/23/安卓BroadcastReceiver组件-监听系统广播/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -268,7 +265,7 @@
 
           
           
-             <span id="/2016/05/23/2016-5-23/" class="leancloud_visitors" data-flag-title="一些试验中琐碎的东西">
+             <span id="/2016/05/23/安卓BroadcastReceiver组件-监听系统广播/" class="leancloud_visitors" data-flag-title="安卓BroadcastReceiver组件-监听系统广播">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -290,15 +287,20 @@
       
 
       
-        <h1 id="读取CSV文件"><a href="#读取CSV文件" class="headerlink" title="读取CSV文件"></a>读取CSV文件</h1><p>java读取csv文件的内容(csv文件有多列数据)<br><a id="more"></a><br>csv文件的内容如下：<br><img src="http://www.kyctj.com/doit/wp-content/uploads/2016/05/1-199x300.jpg" alt="matlab源数据示意"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            BufferedReader input = new BufferedReader(new FileReader(&quot;my1.CSV&quot;));</span><br><span class="line">            FileWriter outWriter = new FileWriter(new File(&quot;outFile.txt&quot;));</span><br><span class="line">            String line;</span><br><span class="line">            String lineDataString;</span><br><span class="line">            while((line = input.readLine()) != null)</span><br><span class="line">            &#123;</span><br><span class="line">                lineDataString = new BigDecimal(line.split(&quot;,&quot;)[2] ).toPlainString();</span><br><span class="line">                System.out.println(lineDataString);</span><br><span class="line">                outWriter.write(lineDataString);</span><br><span class="line">                outWriter.write(&quot;\n&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            input.close();</span><br><span class="line">            outWriter.close();</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            // TODO Auto-generated catch block</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>取出如上第三列数据：<br><img src="http://www.kyctj.com/doit/wp-content/uploads/2016/05/2-81x300.jpg" alt="读取出来的数据"></p>
-<p>后续就可以对这个数据文件进行处理。</p>
-<p>需要注意的是我在读取CSV文件的时候会发现有java.lang.ArrayIndexOutOfBoundsException的错误，经过试验发现是因为数据的内容过少—-》把CSV文件用excel打开会发现一个工作表有1900多个条目，但是我的数据只有几百行。当然我在数据开始添加了很多空行并没有错误，因此<code>csv文件的数据一定要保证填满整个工作表</code>。</p>
-<h1 id="matlab调取数据文件画图"><a href="#matlab调取数据文件画图" class="headerlink" title="matlab调取数据文件画图"></a>matlab调取数据文件画图</h1><p>如上，当我们得到了上述文件后可以用matlab画图对数据进行进一步的分析,想要将数据画图显示出来只需要简单的命令：</p>
-<h2 id="多幅图像多个窗口"><a href="#多幅图像多个窗口" class="headerlink" title="多幅图像多个窗口"></a>多幅图像多个窗口</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">figure</span><br><span class="line">y=load(&apos;detail_0.txt&apos;);//加载你的数据文件</span><br><span class="line">plot(y);</span><br><span class="line">figure</span><br><span class="line">y=load(&apos;detail_1.txt&apos;);//加载你的数据文件</span><br><span class="line">plot(y);</span><br></pre></td></tr></table></figure>
-<h2 id="多幅图像不同颜色在一个坐标轴下"><a href="#多幅图像不同颜色在一个坐标轴下" class="headerlink" title="多幅图像不同颜色在一个坐标轴下"></a>多幅图像不同颜色在一个坐标轴下</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">figure</span><br><span class="line">y=load(&apos;detail_0.txt&apos;);</span><br><span class="line">plot(y,&apos;-b&apos;);//蓝色实线</span><br><span class="line">hold on</span><br><span class="line">y1=load(&apos;detail_1.txt&apos;);</span><br><span class="line">plot(y1,&apos;-r&apos;);//红色实线</span><br></pre></td></tr></table></figure>
-<p>本文使用 <strong>{小书匠}编辑器</strong>发布。</p>
+        <p>安卓系统在运行过程中，会不断的发送一些广播信息，比如电量不足，时区改变，有来电或者短信等。应用程序通过监听这些广播信息就能够得到系统的一些状态。<br><a id="more"></a></p>
+<blockquote>
+<p>广播接收器想要监听系统广播需要注册，注册的方式有两种，第一种是在java代码中注册，另一种是在AndroidManifest.<br>xml文件中注册。对于这两种方法来说，前者称之为动态注册，后者称之为静态注册。</p>
+</blockquote>
+<hr>
+<p>下面通过两个例子来介绍这两种方式的使用方法：</p>
+<h1 id="1-动态注册-监听网络连接"><a href="#1-动态注册-监听网络连接" class="headerlink" title="1.动态注册-监听网络连接"></a>1.动态注册-监听网络连接</h1><p>在网络连接状态发生改变时，系统会发出一个<code>android.net.conn.CONNECTIVITY_CHANGE</code>的action，我们需要在代码中添加对应的filter来响应即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line">    private IntentFilter intentFilter;//</span><br><span class="line">    private NetworkChangeReceiver networkChangeReceiver;//</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        intentFilter = new IntentFilter();</span><br><span class="line">        intentFilter.addAction(&quot;android.net.conn.CONNECTIVITY_CHANGE&quot;);//添加filter</span><br><span class="line">        networkChangeReceiver = new NetworkChangeReceiver();</span><br><span class="line">        registerReceiver(networkChangeReceiver, intentFilter);//注册该接收器</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onDestroy() &#123;</span><br><span class="line">        super.onDestroy();</span><br><span class="line">        unregisterReceiver(networkChangeReceiver);//退出时取消该广播接收器</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class NetworkChangeReceiver extends BroadcastReceiver &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public void onReceive(Context context, Intent intent) &#123;</span><br><span class="line"></span><br><span class="line">                Toast.makeText(context, &quot;network change!&quot;, Toast.LENGTH_SHORT).show();//发现网络状态改变</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h1 id="2-静态注册-实现应用开机启动"><a href="#2-静态注册-实现应用开机启动" class="headerlink" title="2.静态注册-实现应用开机启动"></a>2.静态注册-实现应用开机启动</h1><p><strong>首先</strong>我们需要有能开机启动的权限。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:name=&quot;android.permission.RECEIVE_BOOT_COMPLETED&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>接着</strong>新建一个class为<code>BootCompletedReceiver</code>,其继承自BroadcastReceiver：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class BootCompletedReceiver extends BroadcastReceiver</span><br><span class="line">&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void onReceive(Context context,Intent intent)&#123;</span><br><span class="line">        Toast.makeText(context,&quot;Boot completed!&quot;.Toast.LENGTH_LONG).show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>就像activity一样，广播接收器也需要在AndroidManifest.xml文件中注册。对于开机启动来说，系统对外发送的intent的action为BOOT_COMPLETED。<br><strong>然后</strong>我们注册该广播接收器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;application</span><br><span class="line">    ...</span><br><span class="line">    &lt;receiver android:name=&quot;.BootCompletedReceiver&quot;&gt;</span><br><span class="line">        &lt;intent-filter&gt;</span><br><span class="line">            &lt;action android:name=&quot;android.intent.action.BOOT_COMPLETED&quot;/&gt;</span><br><span class="line">        &lt;/intent-filter&gt;</span><br><span class="line">    &lt;/receiver&gt;</span><br><span class="line">    ...</span><br><span class="line">&lt;/application&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这样就实现了开机启动，开机之后会显示<code>Boot completed!</code>的信息来提示应用已经启动。</p>
+<hr>
+<p>本文使用 <strong>小书匠编辑器</strong>发布。</p>
 
       
     </div>
@@ -320,7 +322,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java-matlab/" rel="tag">#java,matlab</a>
+            <a href="/tags/安卓-BroadcastReceiver-系统广播/" rel="tag">#安卓,BroadcastReceiver,系统广播</a>
           
         </div>
       
@@ -329,16 +331,12 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/23/new/" rel="next" title="安卓BroadcastReceiver组件-监听系统广播">
-                <i class="fa fa-chevron-left"></i> 安卓BroadcastReceiver组件-监听系统广播
-              </a>
-            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/02/成绩查询系统问题记录/" rel="prev" title="成绩查询系统问题记录">
-                成绩查询系统问题记录 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/05/23/一些试验中琐碎的东西/" rel="prev" title="一些试验中琐碎的东西">
+                一些试验中琐碎的东西 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -365,8 +363,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/05/23/2016-5-23/"
-           data-title="一些试验中琐碎的东西" data-url="http://yoursite.com/2016/05/23/2016-5-23/">
+      <div class="ds-thread" data-thread-key="2016/05/23/安卓BroadcastReceiver组件-监听系统广播/"
+           data-title="安卓BroadcastReceiver组件-监听系统广播" data-url="http://yoursite.com/2016/05/23/安卓BroadcastReceiver组件-监听系统广播/">
       </div>
     
   </div>
@@ -450,7 +448,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#读取CSV文件"><span class="nav-number">1.</span> <span class="nav-text">读取CSV文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#matlab调取数据文件画图"><span class="nav-number">2.</span> <span class="nav-text">matlab调取数据文件画图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多幅图像多个窗口"><span class="nav-number">2.1.</span> <span class="nav-text">多幅图像多个窗口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多幅图像不同颜色在一个坐标轴下"><span class="nav-number">2.2.</span> <span class="nav-text">多幅图像不同颜色在一个坐标轴下</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-动态注册-监听网络连接"><span class="nav-number">1.</span> <span class="nav-text">1.动态注册-监听网络连接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-静态注册-实现应用开机启动"><span class="nav-number">2.</span> <span class="nav-text">2.静态注册-实现应用开机启动</span></a></li></ol></div>
             
           </div>
         </section>
