@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="安卓,BroadcastReceiver,系统广播," />
+  <meta name="keywords" content="二叉树," />
 
 
 
@@ -87,16 +87,24 @@
 
 
 
-<meta name="description" content="安卓系统在运行过程中，会不断的发送一些广播信息，比如电量不足，时区改变，有来电或者短信等。应用程序通过监听这些广播信息就能够得到系统的一些状态。">
+<meta name="description" content="春天来了，草长莺飞，正是准备找工作的好时机，也是时候把丢掉的东西在熟悉一下了。
+所谓遍历我觉得把二叉树的遍历几种方式分别称先根序遍历,中根序遍历,后根序遍历是最好得也最容易理解的。先左子树，后右子树的顺序不会变，变的只是根的位置，这样根分别在不同的位置就对应着上面的三种遍历方式，简直是完美。
+具体使用关于二叉树的题目最常见的也就是两点：1.根据前中根序遍历-&amp;gt;后根序遍历的结果2.根据中后根序">
 <meta property="og:type" content="article">
-<meta property="og:title" content="安卓BroadcastReceiver组件-监听系统广播">
-<meta property="og:url" content="http://yoursite.com/2016/05/23/安卓BroadcastReceiver组件-监听系统广播/index.html">
+<meta property="og:title" content="二叉树遍历">
+<meta property="og:url" content="http://yoursite.com/2017/04/04/二叉树相关-2017-04-04/index.html">
 <meta property="og:site_name" content="Sycamore's Blog">
-<meta property="og:description" content="安卓系统在运行过程中，会不断的发送一些广播信息，比如电量不足，时区改变，有来电或者短信等。应用程序通过监听这些广播信息就能够得到系统的一些状态。">
-<meta property="og:updated_time" content="2017-03-28T08:00:29.913Z">
+<meta property="og:description" content="春天来了，草长莺飞，正是准备找工作的好时机，也是时候把丢掉的东西在熟悉一下了。
+所谓遍历我觉得把二叉树的遍历几种方式分别称先根序遍历,中根序遍历,后根序遍历是最好得也最容易理解的。先左子树，后右子树的顺序不会变，变的只是根的位置，这样根分别在不同的位置就对应着上面的三种遍历方式，简直是完美。
+具体使用关于二叉树的题目最常见的也就是两点：1.根据前中根序遍历-&amp;gt;后根序遍历的结果2.根据中后根序">
+<meta property="og:image" content="http://yoursite.com/img/tree.png">
+<meta property="og:updated_time" content="2017-04-05T02:22:43.141Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="安卓BroadcastReceiver组件-监听系统广播">
-<meta name="twitter:description" content="安卓系统在运行过程中，会不断的发送一些广播信息，比如电量不足，时区改变，有来电或者短信等。应用程序通过监听这些广播信息就能够得到系统的一些状态。">
+<meta name="twitter:title" content="二叉树遍历">
+<meta name="twitter:description" content="春天来了，草长莺飞，正是准备找工作的好时机，也是时候把丢掉的东西在熟悉一下了。
+所谓遍历我觉得把二叉树的遍历几种方式分别称先根序遍历,中根序遍历,后根序遍历是最好得也最容易理解的。先左子树，后右子树的顺序不会变，变的只是根的位置，这样根分别在不同的位置就对应着上面的三种遍历方式，简直是完美。
+具体使用关于二叉树的题目最常见的也就是两点：1.根据前中根序遍历-&amp;gt;后根序遍历的结果2.根据中后根序">
+<meta name="twitter:image" content="http://yoursite.com/img/tree.png">
 
 
 
@@ -124,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/05/23/安卓BroadcastReceiver组件-监听系统广播/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/04/04/二叉树相关-2017-04-04/"/>
 
 
 
 
 
-  <title> 安卓BroadcastReceiver组件-监听系统广播 | Sycamore's Blog </title>
+  <title> 二叉树遍历 | Sycamore's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -269,7 +277,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/23/安卓BroadcastReceiver组件-监听系统广播/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/04/二叉树相关-2017-04-04/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sycamore">
@@ -290,7 +298,7 @@
             
             
               
-                安卓BroadcastReceiver组件-监听系统广播
+                二叉树遍历
               
             
           </h1>
@@ -305,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-23T22:18:22+08:00">
-                2016-05-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-04T22:05:21+08:00">
+                2017-04-04
               </time>
             
 
@@ -328,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/C-C/" itemprop="url" rel="index">
+                    <span itemprop="name">C/C++</span>
                   </a>
                 </span>
 
@@ -345,7 +353,7 @@
 
           
           
-             <span id="/2016/05/23/安卓BroadcastReceiver组件-监听系统广播/" class="leancloud_visitors" data-flag-title="安卓BroadcastReceiver组件-监听系统广播">
+             <span id="/2017/04/04/二叉树相关-2017-04-04/" class="leancloud_visitors" data-flag-title="二叉树遍历">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -374,21 +382,14 @@
       
 
       
-        <p>安卓系统在运行过程中，会不断的发送一些广播信息，比如电量不足，时区改变，有来电或者短信等。应用程序通过监听这些广播信息就能够得到系统的一些状态。<br><a id="more"></a></p>
-<blockquote>
-<p>广播接收器想要监听系统广播需要注册，注册的方式有两种，第一种是在java代码中注册，另一种是在AndroidManifest.<br>xml文件中注册。对于这两种方法来说，前者称之为动态注册，后者称之为静态注册。</p>
-</blockquote>
-<hr>
-<p>下面通过两个例子来介绍这两种方式的使用方法：</p>
-<h1 id="1-动态注册-监听网络连接"><a href="#1-动态注册-监听网络连接" class="headerlink" title="1.动态注册-监听网络连接"></a>1.动态注册-监听网络连接</h1><p>在网络连接状态发生改变时，系统会发出一个<code>android.net.conn.CONNECTIVITY_CHANGE</code>的action，我们需要在代码中添加对应的filter来响应即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line">    private IntentFilter intentFilter;//</div><div class="line">    private NetworkChangeReceiver networkChangeReceiver;//</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        intentFilter = new IntentFilter();</div><div class="line">        intentFilter.addAction(&quot;android.net.conn.CONNECTIVITY_CHANGE&quot;);//添加filter</div><div class="line">        networkChangeReceiver = new NetworkChangeReceiver();</div><div class="line">        registerReceiver(networkChangeReceiver, intentFilter);//注册该接收器</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onDestroy() &#123;</div><div class="line">        super.onDestroy();</div><div class="line">        unregisterReceiver(networkChangeReceiver);//退出时取消该广播接收器</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    class NetworkChangeReceiver extends BroadcastReceiver &#123;</div><div class="line">        @Override</div><div class="line">        public void onReceive(Context context, Intent intent) &#123;</div><div class="line"></div><div class="line">                Toast.makeText(context, &quot;network change!&quot;, Toast.LENGTH_SHORT).show();//发现网络状态改变</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<hr>
-<h1 id="2-静态注册-实现应用开机启动"><a href="#2-静态注册-实现应用开机启动" class="headerlink" title="2.静态注册-实现应用开机启动"></a>2.静态注册-实现应用开机启动</h1><p><strong>首先</strong>我们需要有能开机启动的权限。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;uses-permission android:name=&quot;android.permission.RECEIVE_BOOT_COMPLETED&quot;/&gt;</div></pre></td></tr></table></figure></p>
-<p><strong>接着</strong>新建一个class为<code>BootCompletedReceiver</code>,其继承自BroadcastReceiver：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public class BootCompletedReceiver extends BroadcastReceiver</div><div class="line">&#123;</div><div class="line">    @Override</div><div class="line">    public void onReceive(Context context,Intent intent)&#123;</div><div class="line">        Toast.makeText(context,&quot;Boot completed!&quot;.Toast.LENGTH_LONG).show();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>就像activity一样，广播接收器也需要在AndroidManifest.xml文件中注册。对于开机启动来说，系统对外发送的intent的action为BOOT_COMPLETED。<br><strong>然后</strong>我们注册该广播接收器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;application</div><div class="line">    ...</div><div class="line">    &lt;receiver android:name=&quot;.BootCompletedReceiver&quot;&gt;</div><div class="line">        &lt;intent-filter&gt;</div><div class="line">            &lt;action android:name=&quot;android.intent.action.BOOT_COMPLETED&quot;/&gt;</div><div class="line">        &lt;/intent-filter&gt;</div><div class="line">    &lt;/receiver&gt;</div><div class="line">    ...</div><div class="line">&lt;/application&gt;</div></pre></td></tr></table></figure></p>
-<p>这样就实现了开机启动，开机之后会显示<code>Boot completed!</code>的信息来提示应用已经启动。</p>
-<hr>
-<p>本文使用 <strong>小书匠编辑器</strong>发布。</p>
-
+        <p>春天来了，草长莺飞，正是准备找工作的好时机，也是时候把丢掉的东西在熟悉一下了。</p>
+<h1 id="所谓遍历"><a href="#所谓遍历" class="headerlink" title="所谓遍历"></a>所谓遍历</h1><p>我觉得把二叉树的遍历几种方式分别称<code>先根序遍历</code>,<code>中根序遍历</code>,<code>后根序遍历</code>是最好得也最容易理解的。先左子树，后右子树的顺序不会变，变的只是根的位置，这样根分别在不同的位置就对应着上面的三种遍历方式，简直是完美。</p>
+<h1 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h1><p>关于二叉树的题目最常见的也就是两点：<br><strong>1.根据前中根序遍历-&gt;后根序遍历的结果</strong><br><strong>2.根据中后根序遍历-&gt;前根序遍历的结果</strong><br><a id="more"></a><br>其实这个问题最最重要的便是构建出整个树，至于求什么遍历，具体方法就在上面的概念里面了，一波递归就好了。所以下面主要还是求如何根据遍历结果逆推构建二叉树。</p>
+<h2 id="前中根序遍历构建二叉树"><a href="#前中根序遍历构建二叉树" class="headerlink" title="前中根序遍历构建二叉树"></a>前中根序遍历构建二叉树</h2><p><img src="/img/tree.png" alt="示例图"><br>上面的图例已经很清楚的说明了如何通过遍历来构建整个二叉树的思路，为了易于程序实现，我们给出一个最简单的接口：<br><strong>1.二叉树的根节点</strong><br><strong>2.二叉树的前根序遍历的数组，包括开始和结尾元素的下标</strong><br><strong>3.二叉树的中根序遍历的数组，包括开始和结尾元素的下标</strong><br>二叉树节点的结构体描述：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> node &#123;</div><div class="line">  <span class="keyword">int</span>  data;</div><div class="line">  <span class="keyword">struct</span> node *lchild;</div><div class="line">  <span class="keyword">struct</span> node *rchild;</div><div class="line">&#125;Node;</div></pre></td></tr></table></figure></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* </span></div><div class="line">    PreS       先根序序列的第一个元素下标 </div><div class="line">    PreE       先根序序列的最后一个元素下标 </div><div class="line">    InS        中根序序列的第一个元素下标  </div><div class="line">    InE        先根序序列的最后一个元素下标   </div><div class="line">    PreArray   先根序序列数组 </div><div class="line">    InArray    中根序序列数组 </div><div class="line">*/  </div><div class="line">PreInCreateTree(Node *&amp;T,<span class="keyword">int</span> PreS ,<span class="keyword">int</span> PreE ,<span class="keyword">int</span> InS ,<span class="keyword">int</span> InE)</div><div class="line">&#123;  </div><div class="line"></div><div class="line">    <span class="keyword">int</span> RootIndex;  </div><div class="line">    <span class="comment">//先序第一个字符  </span></div><div class="line">    T = (Node*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));  </div><div class="line"></div><div class="line">    T-&gt;data = PreArray[PreS];  </div><div class="line"></div><div class="line">    <span class="comment">//寻找该结点在中序序列中的位置  </span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = InS;i &lt;= InE;i++)&#123;  </div><div class="line">        <span class="keyword">if</span>(T-&gt;data == InArray[i])&#123;  </div><div class="line">            RootIndex = i;  </div><div class="line">            <span class="keyword">break</span>;  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">    <span class="keyword">int</span> leftLen = RootIndex - InS - <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> rightLen = RootIndex;</div><div class="line">    <span class="comment">//根结点的左子树不为空  </span></div><div class="line">    <span class="keyword">if</span>(RootIndex != InS)&#123;  </div><div class="line">        <span class="comment">//以根节点的左结点为根建树  !!!特别注意传递的数组的开始和结尾的下标，别问我为什么提示（我哭一会先）</span></div><div class="line">        PreInCreateTree(T-&gt;lchild,PreS+<span class="number">1</span>,(RootIndex-InS)+PreS<span class="number">-1</span>,InS,RootIndex<span class="number">-1</span>);  </div><div class="line">    &#125;  </div><div class="line">    <span class="keyword">else</span>&#123;  </div><div class="line">        T-&gt;lchild = <span class="literal">NULL</span>;  </div><div class="line">    &#125;  </div><div class="line">    <span class="comment">//根结点的右子树不为空  </span></div><div class="line">    <span class="keyword">if</span>(RootIndex != InE)&#123;  </div><div class="line">        <span class="comment">//以根节点的右结点为根建树  !!!特别注意传递的数组的开始和结尾的下标</span></div><div class="line">        PreInCreateTree(T-&gt;rchild,PreS+<span class="number">1</span>+(RootIndex-InS),PreE,RootIndex+<span class="number">1</span>,InE);  </div><div class="line">    &#125;  </div><div class="line">    <span class="keyword">else</span>&#123;  </div><div class="line">        T-&gt;rchild = <span class="literal">NULL</span>;  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="中后根序遍历构建二叉树"><a href="#中后根序遍历构建二叉树" class="headerlink" title="中后根序遍历构建二叉树"></a>中后根序遍历构建二叉树</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* </span></div><div class="line">    MidS        中根序序列的第一个元素下标 </div><div class="line">    MidE        中根序序列的最后一个元素下标 </div><div class="line">    AftS        后根序序列的第一个元素下标  </div><div class="line">    AftE        后根序序列的最后一个元素下标   </div><div class="line">    MidArray    中根序序列数组 </div><div class="line">    AftArray    后根序序列数组 </div><div class="line">*/  </div><div class="line">MidAfterCreateTree(Node *&amp;T,<span class="keyword">int</span> MidS ,<span class="keyword">int</span> MidE ,<span class="keyword">int</span> AftS ,<span class="keyword">int</span> AftE)</div><div class="line">&#123; </div><div class="line">	<span class="keyword">int</span> RootIndex = <span class="number">0</span>;</div><div class="line">	T = (Node*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</div><div class="line">	T-&gt;data = AftArray[AftE];</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = MidS ; i &lt;= MidE; i++)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">if</span>(T-&gt;data == MidArray[i])</div><div class="line">		&#123;</div><div class="line">			RootIndex = i;</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="keyword">if</span>(RootIndex != MidS)</div><div class="line">	&#123;</div><div class="line">		MidAfterCreateTree(T-&gt;lchild,MidS,(RootIndex <span class="number">-1</span>),AftS,(RootIndex - <span class="number">1</span>-MidS + AftS));</div><div class="line">	&#125; </div><div class="line">	<span class="keyword">else</span></div><div class="line">	&#123;</div><div class="line">		T-&gt;lchild = <span class="literal">NULL</span>;</div><div class="line">	&#125;</div><div class="line">		</div><div class="line">		</div><div class="line">	<span class="keyword">if</span>(RootIndex != MidE)</div><div class="line">	&#123;</div><div class="line">		MidAfterCreateTree(T-&gt;rchild,(RootIndex + <span class="number">1</span>),MidE,(AftE -MidE + RootIndex),(AftE - <span class="number">1</span>));</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span></div><div class="line">	&#123;</div><div class="line">		T-&gt;rchild = <span class="literal">NULL</span>;</div><div class="line">	&#125;</div><div class="line">		</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>参考链接：<br><a href="http://blog.csdn.net/SunnyYoona/article/details/24903815" target="_blank" rel="external">1</a>  </p>
+<blockquote class="blockquote-center">完</blockquote>
       
     </div>
 
@@ -417,7 +418,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/安卓-BroadcastReceiver-系统广播/" rel="tag"># 安卓,BroadcastReceiver,系统广播</a>
+            <a href="/tags/二叉树/" rel="tag"># 二叉树</a>
           
         </div>
       
@@ -430,15 +431,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/03/30/modular-exponentiation-2017-03-30/" rel="next" title="modular-exponentiation">
+                <i class="fa fa-chevron-left"></i> modular-exponentiation
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/05/23/一些试验中琐碎的东西/" rel="prev" title="一些试验中琐碎的东西">
-                一些试验中琐碎的东西 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -578,7 +579,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-动态注册-监听网络连接"><span class="nav-number">1.</span> <span class="nav-text">1.动态注册-监听网络连接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-静态注册-实现应用开机启动"><span class="nav-number">2.</span> <span class="nav-text">2.静态注册-实现应用开机启动</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#所谓遍历"><span class="nav-number">1.</span> <span class="nav-text">所谓遍历</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#具体使用"><span class="nav-number">2.</span> <span class="nav-text">具体使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前中根序遍历构建二叉树"><span class="nav-number">2.1.</span> <span class="nav-text">前中根序遍历构建二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中后根序遍历构建二叉树"><span class="nav-number">2.2.</span> <span class="nav-text">中后根序遍历构建二叉树</span></a></li></ol></li></ol></div>
             
 
           </div>
