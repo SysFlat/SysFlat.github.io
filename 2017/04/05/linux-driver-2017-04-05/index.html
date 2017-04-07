@@ -1,0 +1,900 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux驱动," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="所谓适合自己的才是最好的。学习知识也是如此，同一个知识点，有些人这样讲，但是另外的人按照别的方式讲解。当然不同的讲解方式对于该知识点的正确性自然是不至于错，然而每个人的理解能力以及认知有所差异，因此对知识的最终的吸收程度往往因人而异。而我就是那个理解以及认知能力奇差的那个/(ㄒoㄒ)/~~，废话暂且不说，进入正题。
+基本知识linux设备分类主要分为这样几类：1.字符设备(包括一个杂项设备)2.块">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux字符驱动学习">
+<meta property="og:url" content="http://yoursite.com/2017/04/05/linux-driver-2017-04-05/index.html">
+<meta property="og:site_name" content="Sycamore's Blog">
+<meta property="og:description" content="所谓适合自己的才是最好的。学习知识也是如此，同一个知识点，有些人这样讲，但是另外的人按照别的方式讲解。当然不同的讲解方式对于该知识点的正确性自然是不至于错，然而每个人的理解能力以及认知有所差异，因此对知识的最终的吸收程度往往因人而异。而我就是那个理解以及认知能力奇差的那个/(ㄒoㄒ)/~~，废话暂且不说，进入正题。
+基本知识linux设备分类主要分为这样几类：1.字符设备(包括一个杂项设备)2.块">
+<meta property="og:image" content="http://yoursite.com/img/chardev.png">
+<meta property="og:updated_time" content="2017-04-07T01:58:06.475Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux字符驱动学习">
+<meta name="twitter:description" content="所谓适合自己的才是最好的。学习知识也是如此，同一个知识点，有些人这样讲，但是另外的人按照别的方式讲解。当然不同的讲解方式对于该知识点的正确性自然是不至于错，然而每个人的理解能力以及认知有所差异，因此对知识的最终的吸收程度往往因人而异。而我就是那个理解以及认知能力奇差的那个/(ㄒoㄒ)/~~，废话暂且不说，进入正题。
+基本知识linux设备分类主要分为这样几类：1.字符设备(包括一个杂项设备)2.块">
+<meta name="twitter:image" content="http://yoursite.com/img/chardev.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/05/linux-driver-2017-04-05/"/>
+
+
+
+
+
+  <title> linux字符驱动学习 | Sycamore's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sycamore's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-list-ul"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-inbox"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/05/linux-driver-2017-04-05/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sycamore">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sycamore's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                linux字符驱动学习
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-05T21:19:02+08:00">
+                2017-04-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux驱动/" itemprop="url" rel="index">
+                    <span itemprop="name">linux驱动</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/04/05/linux-driver-2017-04-05/" class="leancloud_visitors" data-flag-title="linux字符驱动学习">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>所谓适合自己的才是最好的。学习知识也是如此，同一个知识点，有些人这样讲，但是另外的人按照别的方式讲解。当然不同的讲解方式对于该知识点的正确性自然是不至于错，然而每个人的理解能力以及认知有所差异，因此对知识的最终的吸收程度往往因人而异。而我就是那个理解以及认知能力奇差的那个/(ㄒoㄒ)/~~，废话暂且不说，进入正题。</p>
+<h1 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h1><h2 id="linux设备分类"><a href="#linux设备分类" class="headerlink" title="linux设备分类"></a>linux设备分类</h2><p>主要分为这样几类：<br><strong>1.字符设备(包括一个杂项设备)</strong><br><strong>2.块设备</strong><br><strong>3.网络设备</strong><br><a id="more"></a></p>
+<h2 id="linux内核模块结构"><a href="#linux内核模块结构" class="headerlink" title="linux内核模块结构"></a>linux内核模块结构</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;linux/module.h&gt;</span></span></div><div class="line"></div><div class="line">MODELE_LICENSE(<span class="string">"Dual BSD/GPL"</span>);</div><div class="line">MODELE_AUTHOR(<span class="string">"XXXX"</span>);</div><div class="line">MODELE_DESCRIPTION(<span class="string">"XXXX"</span>);</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> __<span class="function">init <span class="title">function_init</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> __<span class="function"><span class="built_in">exit</span> <span class="title">function_exit</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">&#125;</div><div class="line">module_init(function_init);</div><div class="line">module_exit(function_exit);</div></pre></td></tr></table></figure>
+<p>linux中所有驱动的编写都是基于此模板，另外linux模块也支持参数传递，支持传递的参数类型有：<code>int,long,short,uint</code>等。主要的函数有下面两种：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">module_param(name,type,perm); <span class="comment">//支持单个参数</span></div><div class="line">module_param_array(name,type,*num,perm);<span class="comment">//支持输入数组</span></div></pre></td></tr></table></figure></p>
+<p>具体使用方法：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> arg0;</div><div class="line"><span class="keyword">int</span> <span class="built_in">array</span>[<span class="number">10</span>];</div><div class="line"><span class="keyword">int</span> arrayNum;</div><div class="line"></div><div class="line">module_param(arg0,<span class="keyword">int</span>,S_IRUSR);</div><div class="line">module_param_array(<span class="built_in">array</span>,<span class="keyword">int</span>,&amp;arrayNum,S_IRUSR);</div><div class="line"></div><div class="line">insmod XXX.ko arg0=<span class="number">10</span> <span class="built_in">array</span>=<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>   <span class="comment">//等号左右不要有空格</span></div></pre></td></tr></table></figure></p>
+<h1 id="字符设备驱动"><a href="#字符设备驱动" class="headerlink" title="字符设备驱动"></a>字符设备驱动</h1><p>任何复杂事物的有条不紊运行都离不开一个个事先规划好的约束条件，linux系统也是如此。linux中的驱动有很多，那么上层应用如何在茫茫“驱动”的海中找到自己想要的那个TA呢？<br>首先你得要知道TA的一个信息：姓名、ID什么的都可以啦~所以作为驱动个体来说都必须有自己的ID，这个ID也就是设备号了，但是——-linux中的设备号却只有256个。这样的话千千万万的屌丝驱动连一个身份证都没有，还想迎娶白富美走上人生巅峰，你痴人说梦呢。话又说回来，瘸子里面挑将军，茫茫驱动海中驱动也能分个三六九等，这样问题就解决了嘛。每个驱动都还是有一个号码，但是由两部分组成–&gt;主ID和次ID。主ID就对应着<code>主设备号</code>，代表我们都是一类嘛。次ID对应<code>次设备号</code>，代表着一类中的某一个。这样通过主次设备号的结合就能够确定到每一个具体的驱动了，于是就有无限可能了~（虽然你丑，但是说不准有人眼瞎呢T^T）<br>另外通过命令<code>cat /proc/devices</code>就可以查看当前系统挂载的各种设备:<br><img src="/img/chardev.png" alt="字符设备"></p>
+<h2 id="标准字符驱动"><a href="#标准字符驱动" class="headerlink" title="标准字符驱动"></a>标准字符驱动</h2><p>字符设备是linux设备中的一大类，大多数的驱动开发也是围绕着字符设备来进行的，所以掌握字符驱动的开发也是极为重要哒~<br>对于字符设备驱动的开发主要有这几个步骤：<br><strong>1.给字符设备分配ID，也就是设备号了，这里会涉及动态和静态分配。</strong><br><strong>2.注册字符类设备，如果是多个同类设备的话还需要创建设备类。</strong><br>描述字符类设备的结构体以及主要函数：<code>include/linux/cdev.h</code>和<code>char_dev.c</code><br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> cdev </div><div class="line">&#123;</div><div class="line">	<span class="keyword">struct</span> kobject kobj;</div><div class="line">	<span class="keyword">struct</span> <span class="keyword">module</span> *owner;</div><div class="line">	<span class="keyword">const</span> <span class="keyword">struct</span> file_operations *ops;</div><div class="line">	<span class="keyword">struct</span> list_head <span class="built_in">list</span>;</div><div class="line">	<span class="keyword">dev_t</span> dev;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> count;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">cdev_init</span><span class="params">(<span class="keyword">struct</span> cdev *, <span class="keyword">const</span> <span class="keyword">struct</span> file_operations *)</span></span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">struct</span> cdev *<span class="title">cdev_alloc</span><span class="params">(<span class="keyword">void</span>)</span></span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">cdev_add</span><span class="params">(<span class="keyword">struct</span> cdev *, <span class="keyword">dev_t</span>, <span class="keyword">unsigned</span>)</span></span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">cdev_del</span><span class="params">(<span class="keyword">struct</span> cdev *)</span></span>;</div></pre></td></tr></table></figure></p>
+<p>动态和静态申请设备号以及释放设备号:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">register_chrdev_region</span><span class="params">(<span class="keyword">dev_t</span> from, <span class="keyword">unsigned</span> count, <span class="keyword">const</span> <span class="keyword">char</span> *name)</span></span>;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">alloc_chrdev_region</span><span class="params">(<span class="keyword">dev_t</span> *dev, <span class="keyword">unsigned</span> baseminor, <span class="keyword">unsigned</span> count,<span class="keyword">const</span> <span class="keyword">char</span> *name)</span></span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">unregister_chrdev_region</span><span class="params">(<span class="keyword">dev_t</span> from, <span class="keyword">unsigned</span> count)</span></span>;</div></pre></td></tr></table></figure></p>
+<p>创建和摧毁设备类：<code>Include/linux/device.h</code><br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">struct</span> device *<span class="title">device_create</span><span class="params">(<span class="keyword">struct</span> <span class="keyword">class</span> *cls, <span class="keyword">struct</span> device *parent,</span></span></div><div class="line">				    <span class="keyword">dev_t</span> devt, <span class="keyword">void</span> *drvdata,</div><div class="line">				    <span class="keyword">const</span> <span class="keyword">char</span> *fmt, ...);</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">device_destroy</span><span class="params">(<span class="keyword">struct</span> <span class="keyword">class</span> *cls, <span class="keyword">dev_t</span> devt)</span></span>;                    </div><div class="line"><span class="function"><span class="keyword">struct</span> <span class="keyword">class</span>* <span class="title">class_create</span><span class="params">(<span class="keyword">struct</span> <span class="keyword">module</span> *owner,<span class="keyword">const</span> <span class="keyword">char</span> *name)</span></span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">class_destroy</span><span class="params">(<span class="keyword">struct</span> <span class="keyword">class</span> *cls)</span></span>;</div></pre></td></tr></table></figure></p>
+<p>下面一个实例展示多个同类字符设备驱动的编写：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;linux/init.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;linux/module.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;linux/moduleparam.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;linux/stat.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/device.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/fs.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/kdev_t.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/cdev.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/slab.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> DEVICE_NAME <span class="meta-string">"myCharDevice"</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> DEVICE_NUM  5</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MAJOR_  0</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MINOR_  0</span></div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">int</span> char_major = MAJOR_;</div><div class="line"><span class="keyword">static</span> <span class="keyword">int</span> char_minor = MINOR_;</div><div class="line"><span class="keyword">static</span> <span class="keyword">int</span> charId;</div><div class="line">module_param(char_major,<span class="keyword">int</span>,S_IRUSR);</div><div class="line">module_param(char_minor,<span class="keyword">int</span>,S_IRUSR);</div><div class="line"></div><div class="line">MODULE_LICENSE(<span class="string">"Dual BSD/GPL"</span>);</div><div class="line">MODULE_AUTHOR(<span class="string">"Sycamore"</span>);</div><div class="line">MODULE_DESCRIPTION(<span class="string">"This is a char driver test!\n"</span>);</div><div class="line"></div><div class="line"><span class="keyword">struct</span> charDevice </div><div class="line">&#123;</div><div class="line">    <span class="keyword">char</span> name[<span class="number">10</span>];</div><div class="line">    <span class="keyword">int</span> data;</div><div class="line">    <span class="keyword">struct</span> cdev dev;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">struct</span> charDevice *myCharDevice ;</div><div class="line"><span class="keyword">struct</span> <span class="keyword">class</span> *myClass;</div><div class="line"><span class="keyword">struct</span> file_operations fileOps = </div><div class="line">&#123;</div><div class="line">    <span class="comment">//一些操作函数并没有实现</span></div><div class="line">  .owner = THIS_MODULE,  </div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">int</span> __<span class="function">init <span class="title">char_init</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> ret,i;</div><div class="line">    <span class="comment">//申请设备号</span></div><div class="line">    <span class="keyword">if</span>(char_major)<span class="comment">//手动分配设备号</span></div><div class="line">    &#123;</div><div class="line">        charId = MKDEV(char_major,char_minor);</div><div class="line">        ret = register_chrdev_region(charId,DEVICE_NUM,DEVICE_NAME);</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(ret &lt; <span class="number">0</span>) </div><div class="line">        &#123;</div><div class="line">            printk(KERN_EMERG <span class="string">"register_chrdev_region failed!!\n"</span>);</div><div class="line">            <span class="keyword">goto</span> fail;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span><span class="comment">//自动分配设备号</span></div><div class="line">    &#123;</div><div class="line">        printk(KERN_EMERG <span class="string">"alloc_chrdev_region works!\n"</span>);</div><div class="line">        ret = alloc_chrdev_region(&amp;charId,<span class="number">0</span>,DEVICE_NUM,DEVICE_NAME);</div><div class="line">        <span class="keyword">if</span>(ret &lt; <span class="number">0</span>) </div><div class="line">        &#123;</div><div class="line">            printk(KERN_EMERG <span class="string">"alloc_chrdev_region failed!!\n"</span>);</div><div class="line">            <span class="keyword">goto</span> fail;</div><div class="line">        &#125;</div><div class="line">        char_major = MAJOR(charId);</div><div class="line">        char_minor = MINOR(charId);</div><div class="line">    &#125;</div><div class="line">    printk(KERN_EMERG <span class="string">"Success!! Major is: %d ,MINOR is %d.\n"</span>,char_major,char_minor);</div><div class="line">    </div><div class="line">    <span class="comment">//申请字符设备类</span></div><div class="line">    myClass = class_create(THIS_MODULE,DEVICE_NAME);</div><div class="line">    myCharDevice = kmalloc(DEVICE_NUM * <span class="keyword">sizeof</span>(<span class="keyword">struct</span> charDevice) , GFP_KERNEL);</div><div class="line">    <span class="keyword">if</span>(!myCharDevice)</div><div class="line">    &#123;</div><div class="line">        printk(KERN_EMERG <span class="string">"Kmailloc failed!!\n"</span>);</div><div class="line">        ret = -ENOMEM;</div><div class="line">        <span class="keyword">goto</span> fail;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">memset</span>(myCharDevice,<span class="number">0</span>,(DEVICE_NUM * <span class="keyword">sizeof</span>(<span class="keyword">struct</span> charDevice)));</div><div class="line">    <span class="comment">//依次注册每个字符</span></div><div class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; DEVICE_NUM; i++)</div><div class="line">    &#123;</div><div class="line">        cdev_init(&amp;(myCharDevice[i].dev),&amp;fileOps);</div><div class="line">        myCharDevice[i].dev.owner = THIS_MODULE;</div><div class="line">        ret = cdev_add(&amp;(myCharDevice[i].dev),MKDEV(char_major,(char_minor + i)),<span class="number">1</span>);</div><div class="line">        <span class="keyword">if</span>(ret) </div><div class="line">        &#123;</div><div class="line">            printk(KERN_EMERG <span class="string">"Cdev_add failed!!\n"</span>);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">goto</span> fail;</div><div class="line">        &#125;</div><div class="line">        device_create(myClass,<span class="literal">NULL</span>,MKDEV(char_major,char_minor + i),<span class="literal">NULL</span>,DEVICE_NAME<span class="string">"%d"</span>,i);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">fail:</div><div class="line"></div><div class="line">    unregister_chrdev_region(charId,DEVICE_NUM);</div><div class="line">    <span class="keyword">return</span> ret;   </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> __<span class="function"><span class="built_in">exit</span> <span class="title">char_exit</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> i ;</div><div class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; DEVICE_NUM; i++)</div><div class="line">    &#123;</div><div class="line">        cdev_del(&amp;(myCharDevice[i].dev));</div><div class="line">        device_destroy(myClass,MKDEV(char_major,(char_minor + i)));</div><div class="line">    &#125;</div><div class="line">    class_destroy(myClass);</div><div class="line">    kfree(myCharDevice);</div><div class="line">    unregister_chrdev_region(charId,DEVICE_NUM);</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">module_init(char_init);</div><div class="line">module_exit(char_exit);</div></pre></td></tr></table></figure></p>
+<h2 id="杂项设备驱动"><a href="#杂项设备驱动" class="headerlink" title="杂项设备驱动"></a>杂项设备驱动</h2><p>上面所说杂项设备是一种特殊的字符设备，这里就可以得到证明了。说它特殊主要是因为它的主设备号已经固定了（10），我们不需要再费心费力为它分配设备号了。因此杂项设备的使用十分方便，操作也十分简单。<br>描述杂项设备的结构体以及主要的函数：<code>include/linux/miscdevice.h</code><br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> miscdevice  </div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> minor;</div><div class="line">	<span class="keyword">const</span> <span class="keyword">char</span> *name;</div><div class="line">	<span class="keyword">const</span> <span class="keyword">struct</span> file_operations *fops;</div><div class="line">	<span class="keyword">struct</span> list_head <span class="built_in">list</span>;</div><div class="line">	<span class="keyword">struct</span> device *parent;</div><div class="line">	<span class="keyword">struct</span> device *this_device;</div><div class="line">	<span class="keyword">const</span> <span class="keyword">char</span> *nodename;</div><div class="line">	<span class="keyword">mode_t</span> mode;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">misc_register</span><span class="params">(<span class="keyword">struct</span> miscdevice * misc)</span></span>;</div><div class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">misc_deregister</span><span class="params">(<span class="keyword">struct</span> miscdevice *misc)</span></span>;</div></pre></td></tr></table></figure></p>
+<p>在模块中定义好<code>struct miscdevice</code>和<code>struct file_operations</code>变量并进行初始化，然后将注册和卸载函数分别放在入口函数<code>init</code>和出口函数<code>exit</code>中就可以了。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p id="div-border-top-red">显而易见，杂项设备驱动的编写相比于标准字符驱动来说是十分方便的。既然如此，我们为何不尝试使用呢</p>
+
+
+
+<blockquote class="blockquote-center">完</blockquote>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux驱动/" rel="tag"># linux驱动</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/04/二叉树相关-2017-04-04/" rel="next" title="二叉树遍历">
+                <i class="fa fa-chevron-left"></i> 二叉树遍历
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/img/avatar.jpg"
+               alt="Sycamore" />
+          <p class="site-author-name" itemprop="name">Sycamore</p>
+           
+              <p class="site-description motion-element" itemprop="description">我挥舞着键盘和本子，发誓要把这个世界写的明明白白。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/SysFlat" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本知识"><span class="nav-number">1.</span> <span class="nav-text">基本知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#linux设备分类"><span class="nav-number">1.1.</span> <span class="nav-text">linux设备分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux内核模块结构"><span class="nav-number">1.2.</span> <span class="nav-text">linux内核模块结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符设备驱动"><span class="nav-number">2.</span> <span class="nav-text">字符设备驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标准字符驱动"><span class="nav-number">2.1.</span> <span class="nav-text">标准字符驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#杂项设备驱动"><span class="nav-number">2.2.</span> <span class="nav-text">杂项设备驱动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sycamore</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("xv3ENYd47z7d4rYz5jCIfuJ4-gzGzoHsz", "HkEVtNnjVajnAWu3TYwIsml0");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+	
+
+<!-- �������� -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
+
+</body>
+</html>
