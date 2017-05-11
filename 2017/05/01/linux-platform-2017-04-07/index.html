@@ -1,0 +1,899 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux驱动 ,," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="在这么多年的学习生涯中，我们知道要想尽快的掌握一部分知识不是去搞题海战术，而是要总结出很多题目背后的知识点进行巩固，以不变应万变。我们把这种方法称之为抽象，这也是最有效的学习方法，同样针对linux中纷繁复杂，千差万别的驱动学习，也是如此。
+总线 设备 驱动总线，设备和驱动是linux驱动所涉及到的三方。设备和驱动都挂载在总线上，并且由总线进行管理。设备和驱动对应，每一个设备都有对应的驱动，驱动也">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux平台驱动模型框架">
+<meta property="og:url" content="http://yoursite.com/2017/05/01/linux-platform-2017-04-07/index.html">
+<meta property="og:site_name" content="Sycamore's Blog">
+<meta property="og:description" content="在这么多年的学习生涯中，我们知道要想尽快的掌握一部分知识不是去搞题海战术，而是要总结出很多题目背后的知识点进行巩固，以不变应万变。我们把这种方法称之为抽象，这也是最有效的学习方法，同样针对linux中纷繁复杂，千差万别的驱动学习，也是如此。
+总线 设备 驱动总线，设备和驱动是linux驱动所涉及到的三方。设备和驱动都挂载在总线上，并且由总线进行管理。设备和驱动对应，每一个设备都有对应的驱动，驱动也">
+<meta property="og:updated_time" content="2017-05-11T07:53:03.143Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux平台驱动模型框架">
+<meta name="twitter:description" content="在这么多年的学习生涯中，我们知道要想尽快的掌握一部分知识不是去搞题海战术，而是要总结出很多题目背后的知识点进行巩固，以不变应万变。我们把这种方法称之为抽象，这也是最有效的学习方法，同样针对linux中纷繁复杂，千差万别的驱动学习，也是如此。
+总线 设备 驱动总线，设备和驱动是linux驱动所涉及到的三方。设备和驱动都挂载在总线上，并且由总线进行管理。设备和驱动对应，每一个设备都有对应的驱动，驱动也">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/01/linux-platform-2017-04-07/"/>
+
+
+
+
+
+  <title> linux平台驱动模型框架 | Sycamore's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sycamore's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-list-ul"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-inbox"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/01/linux-platform-2017-04-07/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sycamore">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sycamore's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                linux平台驱动模型框架
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-01T10:09:42+08:00">
+                2017-05-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux驱动/" itemprop="url" rel="index">
+                    <span itemprop="name">linux驱动</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/05/01/linux-platform-2017-04-07/" class="leancloud_visitors" data-flag-title="linux平台驱动模型框架">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在这么多年的学习生涯中，我们知道要想尽快的掌握一部分知识不是去搞题海战术，而是要总结出很多题目背后的知识点进行巩固，以不变应万变。我们把这种方法称之为抽象，这也是最有效的学习方法，同样针对linux中纷繁复杂，千差万别的驱动学习，也是如此。</p>
+<h1 id="总线-设备-驱动"><a href="#总线-设备-驱动" class="headerlink" title="总线 设备 驱动"></a>总线 设备 驱动</h1><p>总线，设备和驱动是linux驱动所涉及到的三方。设备和驱动都挂载在总线上，并且由总线进行管理。设备和驱动对应，每一个设备都有对应的驱动，驱动也是如此。不管哪一方先挂载到总线上，总线都会去遍历另一方来完成两者的匹配（<code>match()</code>），匹配成功后便会调用驱动的<code>probe()</code>方法来完成设备的初始化等操作。<br><a id="more"></a></p>
+<h2 id="三者之间的代码描述："><a href="#三者之间的代码描述：" class="headerlink" title="三者之间的代码描述："></a>三者之间的代码描述：</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">bus</div><div class="line">------------------------------</div><div class="line"><span class="keyword">struct</span> klist klist_devices;     <span class="comment">//记录bus上挂载的devices</span></div><div class="line"><span class="keyword">struct</span> klist klist_drivers;     <span class="comment">//记录bus上挂载的drivers</span></div><div class="line"></div><div class="line">device</div><div class="line">------------------------------</div><div class="line"><span class="keyword">struct</span> bus_type	*bus;           <span class="comment">//记录当前device挂载的总线</span></div><div class="line"><span class="keyword">struct</span> device_driver *driver;	<span class="comment">//记录当前device绑定的driver</span></div><div class="line"></div><div class="line"></div><div class="line">device_driver</div><div class="line">------------------------------</div><div class="line"><span class="keyword">struct</span> bus_type		*bus;       <span class="comment">//记录当前driver挂载的总线</span></div><div class="line"><span class="keyword">struct</span> klist klist_devices;     <span class="comment">//记录当前driver支持的设备，一个driver可以支持多个不同的设备。</span></div></pre></td></tr></table></figure>
+<h1 id="platfrom平台驱动"><a href="#platfrom平台驱动" class="headerlink" title="platfrom平台驱动"></a>platfrom平台驱动</h1><p>前面所说的bus_type其实是所有总线的一种抽象，因此不管是实体总线比如I2C,SPI，亦或是虚拟总线platform都是由bus_type衍生而来。下面就来探究一下platform总线。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> bus_type platform_bus_type = </div><div class="line">&#123;	</div><div class="line">	.name		= <span class="string">"platform"</span>,</div><div class="line">	.dev_attrs	= platform_dev_attrs,</div><div class="line">	.match		= platform_match,</div><div class="line">	.uevent		= platform_uevent,</div><div class="line">	.pm		= &amp;platform_dev_pm_ops,</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>platform总线的注册流程：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">start_kernel(<span class="keyword">void</span>)——&gt;rest_init()——&gt;kernel_init()——&gt;do_basic_setup()</div><div class="line">——&gt;driver_init(<span class="keyword">void</span>)——&gt;platform_bus_init(<span class="keyword">void</span>)——&gt;device_register()——&gt;bus_register()</div></pre></td></tr></table></figure></p>
+<p>linux中从始至终都秉承着一切皆文件的思想。对于总线来讲也是如此，无论是实体总线或者是虚拟总线都会被当作设备来进行注册。从这个流程来看，platform的注册要先注册一个设备，然后在注册总线，总线是以设备的形式存在的。</p>
+<h2 id="platform-device"><a href="#platform-device" class="headerlink" title="platform_device"></a>platform_device</h2><p>platform_device其实是对上面的device结构体的一种封装，其核心还是device。platform_device_register函数是用来注册平台设备的，具体调用流程如下所示：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">platform_device_register()</div><div class="line">&#123;</div><div class="line">    platform_device_add()</div><div class="line">    &#123;</div><div class="line">        ...</div><div class="line">        device_add()</div><div class="line">        &#123;</div><div class="line">            ...</div><div class="line">            bus_add_device() <span class="comment">//添加设备到bus上</span></div><div class="line">            &#123;</div><div class="line">                ...</div><div class="line">                klist_add_tail(&amp;dev-&gt;p-&gt;knode_bus, &amp;bus-&gt;p-&gt;klist_devices);<span class="comment">//添加设备到klist中去</span></div><div class="line">                ...</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            ...</div><div class="line">            </div><div class="line">            bus_probe_device()  <span class="comment">//设备添加成功之后进行匹配驱动</span></div><div class="line">            &#123;</div><div class="line">                device_attach()</div><div class="line">                &#123;</div><div class="line">                    ...</div><div class="line">                    <span class="comment">//遍历来寻找驱动，并与之绑定</span></div><div class="line">                    bus_for_each_drv(dev-&gt;bus, <span class="literal">NULL</span>, dev, __device_attach);</div><div class="line">                    ...</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            ...</div><div class="line">        &#125;</div><div class="line">        ...</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>通过platform_device_register来注册平台设备，然后会调用platform_device_add，紧接着调用device_add。在device_add中会涉及到一些核心的部分：设备通过bus_add_device添加到总线上，添加成功之后就会通过bus_probe_device来探测driver，最后通过device_attach函数实现设备和驱动的绑定。</p>
+<h2 id="platform-driver"><a href="#platform-driver" class="headerlink" title="platform_driver"></a>platform_driver</h2><p>和platform_device一样，platform_driver也是device_driver的封装，platform_driver_register是用来注册驱动的。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> platform_driver &#123;</div><div class="line">	<span class="keyword">int</span> (*probe)(<span class="keyword">struct</span> platform_device *);</div><div class="line">	<span class="keyword">int</span> (*remove)(<span class="keyword">struct</span> platform_device *);</div><div class="line">	<span class="keyword">void</span> (*shutdown)(<span class="keyword">struct</span> platform_device *);</div><div class="line">	<span class="keyword">int</span> (*suspend)(<span class="keyword">struct</span> platform_device *, <span class="keyword">pm_message_t</span> state);</div><div class="line">	<span class="keyword">int</span> (*resume)(<span class="keyword">struct</span> platform_device *);</div><div class="line">	<span class="keyword">struct</span> device_driver driver;</div><div class="line">            <span class="comment">//-------------------------------------------------</span></div><div class="line">            <span class="comment">//device_driver结构体中的函数</span></div><div class="line">                <span class="keyword">int</span> (*probe) (<span class="keyword">struct</span> device *dev);</div><div class="line">                <span class="keyword">int</span> (*remove) (<span class="keyword">struct</span> device *dev);</div><div class="line">                <span class="keyword">void</span> (*shutdown) (<span class="keyword">struct</span> device *dev);</div><div class="line">                <span class="keyword">int</span> (*suspend) (<span class="keyword">struct</span> device *dev, <span class="keyword">pm_message_t</span> state);</div><div class="line">                <span class="keyword">int</span> (*resume) (<span class="keyword">struct</span> device *dev);</div><div class="line">            <span class="comment">//-------------------------------------------------</span></div><div class="line">	<span class="keyword">const</span> <span class="keyword">struct</span> platform_device_id *id_table;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">platform_driver_register</span><span class="params">(<span class="keyword">struct</span> platform_driver *drv)</span></span></div><div class="line">&#123;</div><div class="line">	drv-&gt;driver.bus = &amp;platform_bus_type;</div><div class="line">	<span class="keyword">if</span> (drv-&gt;probe)</div><div class="line">		drv-&gt;driver.probe = platform_drv_probe;</div><div class="line">	<span class="keyword">if</span> (drv-&gt;remove)</div><div class="line">		drv-&gt;driver.remove = platform_drv_remove;</div><div class="line">	<span class="keyword">if</span> (drv-&gt;shutdown)</div><div class="line">		drv-&gt;driver.shutdown = platform_drv_shutdown;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> driver_register(&amp;drv-&gt;driver);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以看出device_driver中的几个函数和platform_driver中的几个函数是一一对应的。driver_register函数首先就把两者之间的函数进行一一映射，具体调用如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">driver_register()</div><div class="line">&#123;</div><div class="line">    ...</div><div class="line">    bus_add_driver()    //将驱动添加到总线上</div><div class="line">    &#123;</div><div class="line">        ...</div><div class="line">        driver_attach()</div><div class="line">        &#123;</div><div class="line">            bus_for_each_dev(drv-&gt;bus, NULL, drv, __driver_attach);//遍历来寻找设备,并与之绑定</div><div class="line">        &#125;</div><div class="line">        klist_add_tail();   //添加驱动到klist中去</div><div class="line">        ...</div><div class="line">    &#125;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="match与probe"><a href="#match与probe" class="headerlink" title="match与probe"></a>match与probe</h1><p>前面我们也说过，设备与驱动匹配<code>match()</code>成功之后就会调用<code>probe()</code>函数来完成设备的初始化等操作，那么整个流程是什么样的呢？<br>首先我们看一下bus和platform的结构体<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> bus_type &#123;</div><div class="line">	<span class="keyword">const</span> <span class="keyword">char</span>		*name;</div><div class="line">	<span class="keyword">struct</span> bus_attribute	*bus_attrs;</div><div class="line">	<span class="keyword">struct</span> device_attribute	*dev_attrs;</div><div class="line">	<span class="keyword">struct</span> driver_attribute	*drv_attrs;</div><div class="line"></div><div class="line">	<span class="keyword">int</span> (*match)(<span class="keyword">struct</span> device *dev, <span class="keyword">struct</span> device_driver *drv);</div><div class="line">	<span class="keyword">int</span> (*uevent)(<span class="keyword">struct</span> device *dev, <span class="keyword">struct</span> kobj_uevent_env *env);</div><div class="line">	<span class="keyword">int</span> (*probe)(<span class="keyword">struct</span> device *dev);</div><div class="line">	<span class="keyword">int</span> (*remove)(<span class="keyword">struct</span> device *dev);</div><div class="line">	<span class="keyword">void</span> (*shutdown)(<span class="keyword">struct</span> device *dev);</div><div class="line"></div><div class="line">	<span class="keyword">int</span> (*suspend)(<span class="keyword">struct</span> device *dev, <span class="keyword">pm_message_t</span> state);</div><div class="line">	<span class="keyword">int</span> (*resume)(<span class="keyword">struct</span> device *dev);</div><div class="line"></div><div class="line">	<span class="keyword">const</span> <span class="keyword">struct</span> dev_pm_ops *pm;</div><div class="line"></div><div class="line">	<span class="keyword">struct</span> subsys_private *p;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> bus_type platform_bus_type = &#123;</div><div class="line">	.name		= <span class="string">"platform"</span>,</div><div class="line">	.dev_attrs	= platform_dev_attrs,</div><div class="line">	.match		= platform_match,</div><div class="line">	.uevent		= platform_uevent,</div><div class="line">	.pm		= &amp;platform_dev_pm_ops,</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>查看前面的driver结构体和bus结构体我们不难发现bus中存在match和probe函数，driver中也存在一个probe函数。具体如何执行我们下面接着看就明白了。<br>我们都知道对于设备和驱动来讲，不管先添加哪一方，总线都回去遍历另一方来实现两者的匹配操作。在上面的添加设备和驱动的流程中我们也发现了上述的匹配操作主要是通过<code>__device_attach</code>和<code>__driver_attach</code>来进行的，下面来具体看一下这两个函数。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//遍历驱动来绑定设备的函数</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">int</span> __device_attach(<span class="keyword">struct</span> device_driver *drv, <span class="keyword">void</span> *data)</div><div class="line">&#123;</div><div class="line">	<span class="keyword">struct</span> device *dev = data;</div><div class="line"></div><div class="line">	<span class="keyword">if</span> (!driver_match_device(drv, dev))</div><div class="line">		<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> driver_probe_device(drv, dev);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//遍历设备来绑定驱动的函数</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">int</span> __driver_attach(<span class="keyword">struct</span> device *dev, <span class="keyword">void</span> *data)</div><div class="line">&#123;</div><div class="line">	<span class="keyword">struct</span> device_driver *drv = data;</div><div class="line"></div><div class="line">	<span class="keyword">if</span> (!driver_match_device(drv, dev))</div><div class="line">		<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line"></div><div class="line">	<span class="keyword">if</span> (dev-&gt;parent)	<span class="comment">/* Needed for USB */</span></div><div class="line">		device_lock(dev-&gt;parent);</div><div class="line">	device_lock(dev);</div><div class="line">	<span class="keyword">if</span> (!dev-&gt;driver)</div><div class="line">		driver_probe_device(drv, dev);</div><div class="line">	device_unlock(dev);</div><div class="line">	<span class="keyword">if</span> (dev-&gt;parent)</div><div class="line">		device_unlock(dev-&gt;parent);</div><div class="line"></div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>很显然上面的两个过程基本上是一致的，主要是<code>driver_match_device</code>和<code>driver_probe_device</code>这两个函数,那么我们就在深入探究一番：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">driver_match_device</span><span class="params">(<span class="keyword">struct</span> device_driver *drv,</span></span></div><div class="line">				      <span class="keyword">struct</span> device *dev)</div><div class="line">&#123;</div><div class="line">	<span class="keyword">return</span> drv-&gt;bus-&gt;match ? drv-&gt;bus-&gt;match(dev, drv) : <span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>哈哈，找到了。功夫不负有心人呀，这就是我们想要的~意思已经很明白了，如果bus的match函数存在的话就调用咯，这个就是我们的<code>platform_match</code>函数。<br>下面在看另外一个函数<code>driver_probe_device</code>:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">driver_probe_device</span><span class="params">(<span class="keyword">struct</span> device_driver *drv, <span class="keyword">struct</span> device *dev)</span></span></div><div class="line">&#123;</div><div class="line">    ...</div><div class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">really_probe</span><span class="params">(<span class="keyword">struct</span> device *dev, <span class="keyword">struct</span> device_driver *drv)</span></span></div><div class="line">        &#123;</div><div class="line">            ...</div><div class="line">            </div><div class="line">            <span class="keyword">if</span> (dev-&gt;bus-&gt;probe)    <span class="comment">//如果总线的probe函数存在就调用总线的probe函数</span></div><div class="line">            &#123;</div><div class="line">                ret = dev-&gt;bus-&gt;probe(dev);</div><div class="line">                <span class="keyword">if</span> (ret)</div><div class="line">                    <span class="keyword">goto</span> probe_failed;</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (drv-&gt;probe)  <span class="comment">//否则就调用driver的probe函数</span></div><div class="line">            &#123;</div><div class="line">                ret = drv-&gt;probe(dev);</div><div class="line">                <span class="keyword">if</span> (ret)</div><div class="line">                    <span class="keyword">goto</span> probe_failed;</div><div class="line">            &#125;    </div><div class="line">            </div><div class="line">            ...</div><div class="line">        &#125;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面的代码意思也很明了，如果总线的probe函数存在就调用总线的probe函数，否则就调用driver的probe函数。通过上面的platform的定义来看，很明显总线的probe函数没有定义，那么自然调用的就是driver中的probe函数了。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总线分别维护两条链表来记录当前挂载的设备和驱动。不论是设备和驱动哪一方先注册，总线都会遍历另一方来进行匹配（match），匹配成功后会调用driver的probe函数来进行相应的设备初始化等操作。</p>
+<blockquote class="blockquote-center"> # 完结</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux驱动/" rel="tag"># linux驱动 ,</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/07/pointer-2017-04-07/" rel="next" title="指针相关">
+                <i class="fa fa-chevron-left"></i> 指针相关
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/img/avatar.jpg"
+               alt="Sycamore" />
+          <p class="site-author-name" itemprop="name">Sycamore</p>
+           
+              <p class="site-description motion-element" itemprop="description">我挥舞着键盘和本子，发誓要把这个世界写的明明白白。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/SysFlat" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#总线-设备-驱动"><span class="nav-number">1.</span> <span class="nav-text">总线 设备 驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#三者之间的代码描述："><span class="nav-number">1.1.</span> <span class="nav-text">三者之间的代码描述：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#platfrom平台驱动"><span class="nav-number">2.</span> <span class="nav-text">platfrom平台驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#platform-device"><span class="nav-number">2.1.</span> <span class="nav-text">platform_device</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#platform-driver"><span class="nav-number">2.2.</span> <span class="nav-text">platform_driver</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#match与probe"><span class="nav-number">3.</span> <span class="nav-text">match与probe</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sycamore</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("xv3ENYd47z7d4rYz5jCIfuJ4-gzGzoHsz", "HkEVtNnjVajnAWu3TYwIsml0");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+	
+
+<!-- �������� -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
+
+</body>
+</html>
